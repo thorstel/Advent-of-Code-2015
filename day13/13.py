@@ -1,14 +1,15 @@
+from collections import defaultdict
 import itertools
 import re
 import sys
 
 def solve(data):
-    change = {}
+    change = defaultdict(lambda: defaultdict(int))
     persons = set()
     for line in data.splitlines():
         data = line[:-1].split()
         p1, op, val, p2 = data[0], data[2], int(data[3]), data[-1]
-        change.setdefault(p1, {})[p2] = val if op == 'gain' else -val
+        change[p1][p2] = val if op == 'gain' else - val
         persons.add(p1)
 
     def maximize_happiness():
@@ -17,14 +18,13 @@ def solve(data):
             total = 0
             for i in range(len(perm)):
                 p, n1, n2 = perm[i], perm[(i - 1) % len(perm)], perm[(i + 1) % len(perm)]
-                if n1 in change[p]: total += change[p][n1]
-                if n2 in change[p]: total += change[p][n2]
+                total += change[p][n1]
+                total += change[p][n2]
             optimal = max(total, optimal)
         return optimal
 
     print(maximize_happiness())
     persons.add('me')
-    change['me'] = {}
     print(maximize_happiness())
 
 ########################################################################
