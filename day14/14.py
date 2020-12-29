@@ -13,7 +13,7 @@ def solve(data, target = 2503):
     deers = []
     score = {}
     for line in data.splitlines():
-        xs = line.split();
+        xs = line.split()
         name, speed, dur, pause = xs[0], int(xs[3]), int(xs[6]), int(xs[13])
         dist = calc_dist(target, speed, dur, pause)
         max_dist = max(dist, max_dist)

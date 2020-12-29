@@ -7,11 +7,11 @@ def solve(data):
     assert len(data) == 4
     prop = []
     for line in data:
-        _, p = line.split(': ')
+        p = line[line.find(':') + 2:]
         prop.append(list(map(lambda s: int(s.split()[1]), p.split(', '))))
 
-    total_score1 = 0;
-    total_score2 = 0;
+    total_score1 = 0
+    total_score2 = 0
     for i in range(101):
         for j in range(101 - i):
             for k in range(101 - i - j):
